@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ IELTS MASTERY</title>
+    
+    <!-- FAVICON (Base64 SVG: Gold 'I' on Dark Background for IELTS) -->
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMzIi IGhlaWdodD0iMzIiIGZpbGw9IiMwQTBBMFQiLz4KICA8dGV4dCB4PSI1MCUiIHk9IjY1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNENEFGMzciPkk8L3RleHQ+Cjwvc3ZnPg==">
+
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        /* BilHuri Studio: Dark Mode Premium Theme */
+        body {
+            background-color: #0A0A0A; /* Deep Dark Background */
+            color: #E0E0E0; /* Light Gray Text */
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        /* Custom Font Assignments */
+        .font-header {
+            font-family: 'Playfair Display', serif;
+        }
+        .font-mono-code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Scrollbar Styling for Dark Theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4A4A4A;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6A6A6A;
+        }
+
+        /* Custom Radio Button Styling */
+        input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.5rem;
+            border: 2px solid #555;
+            border-radius: 50%;
+            outline: none;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        input[type="radio"]:checked {
+            border-color: #D4AF37; /* Gold/Bronze accent for checked state */
+            background-color: #D4AF37;
+        }
+
+        /* Hover effect for labels */
+        .option-label:hover input[type="radio"] {
+            border-color: #D4AF37;
+        }
+
+        /* Fixed Footer Watermark (Branding) */
+        .bilhuri-badge {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            padding: 0.5rem 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border-radius: 0.5rem;
+            color: #555;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Content Container -->
+    <div class="w-full max-w-4xl bg-[#1A1A1A] rounded-2xl shadow-2xl p-6 md:p-10 mb-20 border border-[#2A2A2A]">
+
+        <!-- Header -->
+        <header class="text-center mb-10 border-b border-[#2A2A2A] pb-6">
+            <h1 class="font-header text-4xl md:text-5xl text-[#D4AF37] mb-2">
+                QUIZ IELTS MASTERY
+            </h1>
+            <p class="text-lg text-gray-400">
+                Latihan komprehensif untuk Grammar Range, Accuracy, dan Strategi Kohesi IELTS.
+            </p>
+        </header>
+
+        <!-- Quiz Form / Questions Section -->
+        <form id="quiz-form" class="space-y-8">
+            <div id="questions-container">
+                <!-- Questions will be rendered here by JavaScript -->
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-6 border-t border-[#2A2A2A]">
+                <button type="submit" id="submit-button"
+                    class="w-full px-6 py-3 bg-[#D4AF37] hover:bg-[#C0A030] text-[#1A1A1A] font-bold rounded-lg shadow-lg transition duration-200 uppercase tracking-wider disabled:opacity-50">
+                    SUBMIT
+                </button>
+            </div>
+        </form>
+
+        <!-- Results Display Section -->
+        <div id="results-container" class="hidden text-center py-10">
+            <h2 class="font-header text-3xl md:text-4xl mb-4 text-[#4CAF50]">
+                Your Score!
+            </h2>
+            <div id="score-display" class="mb-8 p-4 bg-[#2A2A2A] rounded-xl inline-block shadow-inner">
+                <p class="text-5xl font-mono-code font-bold text-[#D4AF37]">
+                    <span id="final-score">0</span>/<span id="total-questions">20</span>
+                </p>
+                <p class="text-gray-400 mt-2">Total Skor</p>
+            </div>
+            
+            <!-- Branding Stamp -->
+            <p class="text-xs text-gray-500 mb-8">
+                A Product of Bilhuri Studio
+            </p>
+
+            <!-- Navigation Buttons & Confirmation Message -->
+            <div class="pt-4 border-t border-[#2A2A2A]">
+                <p class="text-lg text-[#E0E0E0] mb-6">
+                    Selamat! Anda menyelesaikan IELTS Prep.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 mt-4">
+                    <button id="retake-button"
+                        class="flex-1 px-6 py-3 bg-[#555] hover:bg-[#777] text-white font-semibold rounded-lg transition duration-200">
+                        Coba Lagi
+                    </button>
+                    <a id="dashboard-link" href="https://bilhuri.github.io/EnglishwithBil/index.html"
+                        class="flex-1 px-6 py-3 bg-[#D4AF37] hover:bg-[#C0A030] text-[#1A1A1A] font-bold rounded-lg transition duration-200 flex items-center justify-center">
+                        Kembali ke EWB
+                    </a>
+                </div>
+            </div>
+
+            <!-- Feedback Summary -->
+            <div id="feedback-summary" class="text-left space-y-4 mt-8 p-6 bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl max-h-96 overflow-y-auto">
+                <p class="font-semibold text-xl border-b border-[#3A3A3A] pb-2 mb-4 text-gray-300">
+                    Ringkasan Koreksi:
+                </p>
+                <!-- Detailed feedback items will go here -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Fixed Branding Watermark -->
+    <div class="bilhuri-badge">
+        Product of Bilhuri Studio
+    </div>
+
+    <script>
+        // --- 1. QUIZ DATA (IELTS MASTERY: Cohesion, Advanced Grammar, Strategy - Band 7+) ---
+        const questions = [
+            // ----------------------------------------------------
+            // 1. Cohesion/Discourse Markers (5 Qs)
+            // ----------------------------------------------------
+            {
+                q: "Economic growth often leads to higher pollution levels. ___, strict environmental laws can mitigate this effect.",
+                options: ["In contrast", "Similarly", "For instance", "Such as"],
+                correct: "In contrast",
+                topic: "Cohesion (Contrast)"
+            },
+            {
+                q: "The rise in remote work offers flexibility; ___, it can blur the line between professional and personal life.",
+                options: ["consequently", "likewise", "furthermore", "conversely"],
+                correct: "conversely",
+                topic: "Cohesion (Opposing Idea)"
+            },
+            {
+                q: "___ the data indicates a strong upward trend in sales, we must remain cautious.",
+                options: ["Despite", "Notwithstanding", "In spite of", "Although"],
+                correct: "Although",
+                topic: "Cohesion (Subordinating Conjunction)"
+            },
+            {
+                q: "Renewable energy sources are costly initially. ___, they offer long-term savings and environmental benefits.",
+                options: ["Hence", "To conclude", "Be that as it may", "For example"],
+                correct: "Be that as it may",
+                topic: "Cohesion (Conceding a Point)"
+            },
+            {
+                q: "A sedentary lifestyle causes various health issues. ___, lack of sleep exacerbates stress.",
+                options: ["Specifically", "Conversely", "To illustrate", "Furthermore"],
+                correct: "Furthermore",
+                topic: "Cohesion (Adding a Point)"
+            },
+            // ----------------------------------------------------
+            // 2. Advanced Grammar: Participle Clauses / Inversion (5 Qs)
+            // ----------------------------------------------------
+            {
+                q: "___ the experiment, the team found unexpected results.",
+                options: ["Completing", "Having completed", "Completed", "To complete"],
+                correct: "Having completed",
+                topic: "Advanced Grammar (Perfect Participle Clause)"
+            },
+            {
+                q: "So complex ___ that experts struggled to explain it.",
+                options: ["the system was", "was the system", "it was the system", "did the system be"],
+                correct: "was the system",
+                topic: "Advanced Grammar (Inversion with So)"
+            },
+            {
+                q: "Only by implementing stringent measures ___ the crisis be averted.",
+                options: ["can", "it can", "it will", "could it be"],
+                correct: "can",
+                topic: "Advanced Grammar (Inversion with Only by)"
+            },
+            {
+                q: "The data, ___ in Appendix A, supports the hypothesis.",
+                options: ["showing", "as shown", "which shown", "shown"],
+                correct: "shown",
+                topic: "Advanced Grammar (Reduced Relative Clause - Passive)"
+            },
+            {
+                q: "Had the government ___ earlier, the outcome would have been different.",
+                options: ["intervene", "intervened", "intervening", "to intervene"],
+                correct: "intervened",
+                topic: "Advanced Grammar (Conditional Inversion Type 3)"
+            },
+            // ----------------------------------------------------
+            // 3. Complex Sentences / Nominalization (5 Qs)
+            // ----------------------------------------------------
+            {
+                q: "The solution depends on ___ effectively the resources are managed.",
+                options: ["that", "what", "how", "it is how"],
+                correct: "how",
+                topic: "Complex Sentences (Nominalization/Noun Clause)"
+            },
+            {
+                q: "The increase in global temperatures ___ a serious environmental concern.",
+                options: ["are", "is being", "constitutes", "they are"],
+                correct: "constitutes",
+                topic: "Complex Sentences (Nominalization as Subject)"
+            },
+            {
+                q: "It is widely accepted ___ technology has revolutionized education.",
+                options: ["what", "that", "how", "which"],
+                correct: "that",
+                topic: "Complex Sentences (Formal Subject/It is...that)"
+            },
+            {
+                q: "The primary function of the body paragraph in IELTS Task 2 is to ___.",
+                options: ["give your conclusion", "introduce the topic", "elaborate on the main argument", "summarize the statistics"],
+                correct: "elaborate on the main argument",
+                topic: "IELTS Strategy (Writing Task 2 Structure)"
+            },
+            {
+                q: "When describing two graphs in IELTS Task 1, you should prioritize ___.",
+                options: ["listing every data point", "paraphrasing the title", "highlighting key features and trends", "giving a personal opinion"],
+                correct: "highlighting key features and trends",
+                topic: "IELTS Strategy (Writing Task 1 Approach)"
+            },
+            // ----------------------------------------------------
+            // 4. Reading/Speaking Strategy (5 Qs)
+            // ----------------------------------------------------
+            {
+                q: "The main purpose of scanning an IELTS reading passage is ___.",
+                options: ["to understand the general idea", "to find specific keywords or facts", "to memorize complex vocabulary", "to critique the author's argument"],
+                correct: "to find specific keywords or facts",
+                topic: "Reading Strategy (Scanning)"
+            },
+            {
+                q: "In IELTS Speaking, what does 'lexical resource' primarily refer to?",
+                options: ["Using perfect grammar", "Fluency and speed", "The range and accuracy of vocabulary used", "Pronouncing words clearly"],
+                correct: "The range and accuracy of vocabulary used",
+                topic: "IELTS Strategy (Speaking Criterion)"
+            },
+            {
+                q: "Which connective is best suited to introduce an unexpected result?",
+                options: ["Consequently", "Furthermore", "Nevertheless", "In addition"],
+                correct: "Nevertheless",
+                topic: "Cohesion (Unexpected Result)"
+            },
+            {
+                q: "If you encounter a 'Matching Headings' question, what should you read first?",
+                options: ["The whole passage word-for-word", "The options (headings)", "The first and last sentences of each paragraph", "Only the pictures/diagrams"],
+                correct: "The options (headings)",
+                topic: "Reading Strategy (Matching Headings)"
+            },
+            {
+                q: "In Speaking Part 3, how should you respond to a complex question about society?",
+                options: ["Give a brief one-sentence answer", "Speculate, generalize, and elaborate with complex structures", "Tell a personal story only", "Use only simple present tense"],
+                correct: "Speculate, generalize, and elaborate with complex structures",
+                topic: "IELTS Strategy (Speaking Part 3)"
+            }
+        ];
+
+        const questionsContainer = document.getElementById('questions-container');
+        const quizForm = document.getElementById('quiz-form');
+        const resultsContainer = document.getElementById('results-container');
+        const finalScore = document.getElementById('final-score');
+        const feedbackSummary = document.getElementById('feedback-summary');
+        const retakeButton = document.getElementById('retake-button');
+
+        // --- 2. FUNCTION TO RENDER QUIZ QUESTIONS ---
+        function renderQuestions() {
+            questionsContainer.innerHTML = ''; // Clear previous questions
+
+            questions.forEach((qData, index) => {
+                const qNumber = index + 1;
+                const questionHtml = `
+                    <div class="question-item p-5 bg-[#121212] rounded-xl border border-[#222] shadow-lg">
+                        <p class="text-lg font-mono-code mb-3 text-[#D4AF37]">
+                            ${qNumber}. (${qData.topic})
+                        </p>
+                        <p class="text-xl mb-4 font-semibold text-gray-200">
+                            ${qData.q.replace('___', '<span class="text-white underline">___</span>')}
+                        </p>
+                        <div class="space-y-3">
+                            ${qData.options.map(option => `
+                                <label class="option-label flex items-center text-gray-300 cursor-pointer p-2 rounded-lg hover:bg-[#2A2A2A] transition duration-150">
+                                    <input type="radio" name="q${index}" value="${option}" data-q-index="${index}"
+                                        class="radio-input focus:ring-2 focus:ring-[#D4AF37]">
+                                    <span class="ml-2">${option}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                questionsContainer.innerHTML += questionHtml;
+            });
+        }
+
+        // --- 3. FUNCTION TO HANDLE SUBMISSION AND SCORING ---
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            let score = 0;
+            // Start of the feedback summary section
+            let feedbackHtml = `<p class="font-semibold text-xl border-b border-[#3A3A3A] pb-2 mb-4 text-gray-300">
+                                    Ringkasan Koreksi:
+                                </p>`;
+
+
+            questions.forEach((qData, index) => {
+                const qNumber = index + 1;
+                const selectedInput = document.querySelector(`input[name="q${index}"]:checked`);
+                const selectedAnswer = selectedInput ? selectedInput.value : null;
+                const isCorrect = selectedAnswer === qData.correct;
+
+                // Simple text replacement for feedback highlighting
+                let correctedQuestion = qData.q.replace('___', `<u class="text-[#D4AF37]">${qData.correct}</u>`);
+                // For questions without '___', display the correct option and the question text
+                if (qData.q.indexOf('___') === -1) {
+                     correctedQuestion = `${qData.q}. Jawaban Benar: <u class="text-[#D4AF37]">${qData.correct}</u>`;
+                }
+
+                if (isCorrect) {
+                    score++;
+                    feedbackHtml += `
+                        <div class="flex items-start p-3 bg-[#1A301A] rounded-lg">
+                            <span class="text-[#4CAF50] font-bold mr-3 mt-1">&#10003;</span>
+                            <p>
+                                <span class="font-mono-code text-sm text-[#4CAF50] mr-2">${qNumber}. Benar.</span>
+                                <span class="text-gray-300">${correctedQuestion}</span>
+                            </p>
+                        </div>
+                    `;
+                } else {
+                    const selectedText = selectedAnswer ? `<span class="text-red-400">(${selectedAnswer})</span>` : '<span class="text-red-400">(Tidak Dijawab)</span>';
+                    feedbackHtml += `
+                        <div class="flex items-start p-3 bg-[#301A1A] rounded-lg">
+                            <span class="text-red-400 font-bold mr-3 mt-1">&#10007;</span>
+                            <p>
+                                <span class="font-mono-code text-sm text-red-400 mr-2">${qNumber}. Salah. Jawabanmu ${selectedText}</span>
+                                <br>
+                                <span class="text-gray-300">Koreksi: ${correctedQuestion}</span>
+                            </p>
+                        </div>
+                    `;
+                }
+            });
+
+            // Display Results
+            document.getElementById('total-questions').textContent = questions.length;
+            finalScore.textContent = score;
+            feedbackSummary.innerHTML = feedbackHtml;
+            
+            quizForm.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+
+            // Scroll to the top of the results
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 4. EVENT LISTENERS & INITIALIZATION ---
+        quizForm.addEventListener('submit', handleSubmit);
+
+        retakeButton.addEventListener('click', () => {
+            window.location.reload(); // Simple reload to restart the quiz
+        });
+
+        // Initial render
+        renderQuestions();
+    </script>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ TOEFL MASTERY</title>
+    
+    <!-- FAVICON (Base64 SVG: Gold 'T' on Dark Background for TOEFL) -->
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwQTBBMFQiLz4KICA8dGV4dCB4PSI1MCUiIHk9IjY1JSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNENEFGMzciPlQ8L3RleHQ+Cjwvc3ZnPg==">
+
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        /* BilHuri Studio: Dark Mode Premium Theme */
+        body {
+            background-color: #0A0A0A; /* Deep Dark Background */
+            color: #E0E0E0; /* Light Gray Text */
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        /* Custom Font Assignments */
+        .font-header {
+            font-family: 'Playfair Display', serif;
+        }
+        .font-mono-code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Scrollbar Styling for Dark Theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4A4A4A;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6A6A6A;
+        }
+
+        /* Custom Radio Button Styling */
+        input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.5rem;
+            border: 2px solid #555;
+            border-radius: 50%;
+            outline: none;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        input[type="radio"]:checked {
+            border-color: #D4AF37; /* Gold/Bronze accent for checked state */
+            background-color: #D4AF37;
+        }
+
+        /* Hover effect for labels */
+        .option-label:hover input[type="radio"] {
+            border-color: #D4AF37;
+        }
+
+        /* Fixed Footer Watermark (Branding) */
+        .bilhuri-badge {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            padding: 0.5rem 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border-radius: 0.5rem;
+            color: #555;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Content Container -->
+    <div class="w-full max-w-4xl bg-[#1A1A1A] rounded-2xl shadow-2xl p-6 md:p-10 mb-20 border border-[#2A2A2A]">
+
+        <!-- Header -->
+        <header class="text-center mb-10 border-b border-[#2A2A2A] pb-6">
+            <h1 class="font-header text-4xl md:text-5xl text-[#D4AF37] mb-2">
+                QUIZ TOEFL MASTERY
+            </h1>
+            <p class="text-lg text-gray-400">
+                Exam-style test focusing on TOEFL Structure, Written Expression, and essential Test Strategy.
+            </p>
+        </header>
+
+        <!-- Quiz Form / Questions Section -->
+        <form id="quiz-form" class="space-y-8">
+            <div id="questions-container">
+                <!-- Questions will be rendered here by JavaScript -->
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-6 border-t border-[#2A2A2A]">
+                <button type="submit" id="submit-button"
+                    class="w-full px-6 py-3 bg-[#D4AF37] hover:bg-[#C0A030] text-[#1A1A1A] font-bold rounded-lg shadow-lg transition duration-200 uppercase tracking-wider disabled:opacity-50">
+                    Kirim Jawaban & Lihat Skor
+                </button>
+            </div>
+        </form>
+
+        <!-- Results Display Section -->
+        <div id="results-container" class="hidden text-center py-10">
+            <h2 class="font-header text-3xl md:text-4xl mb-4 text-[#4CAF50]">
+                Hasil Ujianmu!
+            </h2>
+            <div id="score-display" class="mb-8 p-4 bg-[#2A2A2A] rounded-xl inline-block shadow-inner">
+                <p class="text-5xl font-mono-code font-bold text-[#D4AF37]">
+                    <span id="final-score">0</span>/<span id="total-questions">20</span>
+                </p>
+                <p class="text-gray-400 mt-2">Total Skor</p>
+            </div>
+            
+            <!-- Branding Stamp -->
+            <p class="text-xs text-gray-500 mb-8">
+                A Product of Bilhuri Studio
+            </p>
+
+            <!-- Navigation Buttons & Confirmation Message -->
+            <div class="pt-4 border-t border-[#2A2A2A]">
+                <p class="text-lg text-[#E0E0E0] mb-6">
+                    Selamat! Anda menyelesaikan TOEFL Prep.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 mt-4">
+                    <button id="retake-button"
+                        class="flex-1 px-6 py-3 bg-[#555] hover:bg-[#777] text-white font-semibold rounded-lg transition duration-200">
+                        Coba Lagi
+                    </button>
+                    <a id="dashboard-link" href="https://bilhuri.github.io/EnglishwithBil/index.html"
+                        class="flex-1 px-6 py-3 bg-[#D4AF37] hover:bg-[#C0A030] text-[#1A1A1A] font-bold rounded-lg transition duration-200 flex items-center justify-center">
+                        Kembali ke EWB
+                    </a>
+                </div>
+            </div>
+
+            <!-- Feedback Summary -->
+            <div id="feedback-summary" class="text-left space-y-4 mt-8 p-6 bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl max-h-96 overflow-y-auto">
+                <p class="font-semibold text-xl border-b border-[#3A3A3A] pb-2 mb-4 text-gray-300">
+                    Ringkasan Koreksi:
+                </p>
+                <!-- Detailed feedback items will go here -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Fixed Branding Watermark -->
+    <div class="bilhuri-badge">
+        Product of Bilhuri Studio
+    </div>
+
+    <script>
+        // --- 1. QUIZ DATA (TOEFL MASTERY: Structure, Grammar Pitfalls, and Strategy) ---
+        const questions = [
+            // ----------------------------------------------------
+            // Structure I: Noun/Adverb Clause Connectors (5 Qs)
+            // ----------------------------------------------------
+            {
+                q: "The fact ___ coffee is derived from beans is not widely known.",
+                options: ["that", "what", "which", "where"],
+                correct: "that",
+                topic: "Structure I (Noun Clause Connector)"
+            },
+            {
+                q: "When the students they finished the exam, they left the room. Which part is unnecessary?",
+                options: ["When", "students", "they (in the first clause)", "finished"],
+                correct: "they (in the first clause)",
+                topic: "Structure I (Extra Subject/Verb)"
+            },
+            {
+                q: "Scientists cannot agree ___ a universal theory of consciousness.",
+                options: ["that is", "on how", "is that", "what is"],
+                correct: "on how",
+                topic: "Structure I (Adverb Clause Connector)"
+            },
+            {
+                q: "The children they enjoyed to play outside in the afternoon. Which part is unnecessary?",
+                options: ["children", "they", "enjoyed", "in the afternoon"],
+                correct: "they",
+                topic: "Structure I (Extra Subject)"
+            },
+            {
+                q: "The doctor advised the patient ___ he should eat less sugar.",
+                options: ["if", "what", "that", "in which"],
+                correct: "that",
+                topic: "Structure I (Noun Clause - Advice)"
+            },
+            // ----------------------------------------------------
+            // Structure II: Parallel Structure & Inversion (5 Qs)
+            // ----------------------------------------------------
+            {
+                q: "The manager is responsible for hiring employees, training new staff, and ___ production schedules.",
+                options: ["scheduling", "to schedule", "schedule", "the schedules"],
+                correct: "scheduling",
+                topic: "Structure II (Parallel Structure - Gerunds)"
+            },
+            {
+                q: "Not until the final scene ___ the villain's true motive.",
+                options: ["we realized", "did we realize", "realized we", "was realized"],
+                correct: "did we realize",
+                topic: "Structure II (Negative Inversion - Not until)"
+            },
+            {
+                q: "His essay was both comprehensive ___ well-researched.",
+                options: ["also", "and", "but", "which"],
+                correct: "and",
+                topic: "Structure II (Parallel Structure - Both...and)"
+            },
+            {
+                q: "Hardly ever ___ such intense dedication to a single project.",
+                options: ["the team showed", "the team has shown", "has the team shown", "showed the team"],
+                correct: "has the team shown",
+                topic: "Structure II (Negative Inversion - Hardly ever)"
+            },
+            {
+                q: "She prefers hiking ___ cycling.",
+                options: ["than", "rather than", "to", "as"],
+                correct: "to",
+                topic: "Structure II (Parallel Structure - Prefer...to)"
+            },
+            // ----------------------------------------------------
+            // Advanced Grammar Pitfalls: Gerund/Infinitive (3 Qs)
+            // ----------------------------------------------------
+            {
+                q: "I finished ___ the novel last night.",
+                options: ["to read", "reading", "read", "reads"],
+                correct: "reading",
+                topic: "Advanced Pitfall (Finished + Gerund)"
+            },
+            {
+                q: "The politician refused ___ the allegations.",
+                options: ["to deny", "denying", "denies", "deny"],
+                correct: "to deny",
+                topic: "Advanced Pitfall (Refused + Infinitive)"
+            },
+            {
+                q: "We regretted not ___ the necessary precautions earlier.",
+                options: ["taking", "to take", "took", "have taken"],
+                correct: "taking",
+                topic: "Advanced Pitfall (Regret + Gerund)"
+            },
+            // ----------------------------------------------------
+            // Listening Strategy (3 Qs)
+            // ----------------------------------------------------
+            {
+                q: 'In a conversation, Speaker A says: "I heard the library is closing early." Speaker B replies: "I thought it stayed open until 10." What is the main idea?',
+                options: ["The library is closing at 10", "Speaker B is unsure", "Speaker B disagrees with Speaker A", "Speaker A is certain of the news"],
+                correct: "Speaker B disagrees with Speaker A",
+                topic: "Listening Strategy (Distractor/Contradiction)"
+            },
+            {
+                q: "What is the best strategy when you miss a detail in a long lecture?",
+                options: ["Guess the answer immediately", "Focus on the next section for contextual clues", "Ask the lecturer immediately", "Stop listening completely"],
+                correct: "Focus on the next section for contextual clues",
+                topic: "Listening Strategy (Recovery/Context)"
+            },
+            {
+                q: "Paraphrasing in listening comprehension means:",
+                options: ["Repeating the exact words", "Summarizing the main point in your own words", "Translating into your native language", "Writing down every detail"],
+                correct: "Summarizing the main point in your own words",
+                topic: "Listening Strategy (Paraphrase Logic)"
+            },
+            // ----------------------------------------------------
+            // Reading Strategy (4 Qs)
+            // ----------------------------------------------------
+            {
+                q: "When looking for a specific date in a passage, which technique should you use?",
+                options: ["Skimming", "Reading every word slowly", "Scanning", "Inferring"],
+                correct: "Scanning",
+                topic: "Reading Strategy (Scanning for Detail)"
+            },
+            {
+                q: "What is the primary purpose of skimming a passage?",
+                options: ["To find specific names/dates", "To understand the main topic and structure quickly", "To memorize all the details", "To identify every difficult vocabulary word"],
+                correct: "To understand the main topic and structure quickly",
+                topic: "Reading Strategy (Skimming for Topic)"
+            },
+            {
+                q: 'In the sentence: "The building was beautiful, and **it** had a large garden." What does **\'it\'** refer to?',
+                options: ["The large garden", "The building", "The sentence", "The beauty"],
+                correct: "The building",
+                topic: "Reading Strategy (Reference Pronoun)"
+            },
+            {
+                q: "Which type of question requires you to look beyond the text and draw a conclusion?",
+                options: ["Factual questions", "Vocabulary questions", "Inference questions", "Negative Factual questions"],
+                correct: "Inference questions",
+                topic: "Reading Strategy (Inference)"
+            }
+        ];
+
+        const questionsContainer = document.getElementById('questions-container');
+        const quizForm = document.getElementById('quiz-form');
+        const resultsContainer = document.getElementById('results-container');
+        const finalScore = document.getElementById('final-score');
+        const feedbackSummary = document.getElementById('feedback-summary');
+        const retakeButton = document.getElementById('retake-button');
+
+        // --- 2. FUNCTION TO RENDER QUIZ QUESTIONS ---
+        function renderQuestions() {
+            questionsContainer.innerHTML = ''; // Clear previous questions
+
+            questions.forEach((qData, index) => {
+                const qNumber = index + 1;
+                const questionHtml = `
+                    <div class="question-item p-5 bg-[#121212] rounded-xl border border-[#222] shadow-lg">
+                        <p class="text-lg font-mono-code mb-3 text-[#D4AF37]">
+                            ${qNumber}. (${qData.topic})
+                        </p>
+                        <p class="text-xl mb-4 font-semibold text-gray-200">
+                            ${qData.q.replace('___', '<span class="text-white underline">___</span>')}
+                        </p>
+                        <div class="space-y-3">
+                            ${qData.options.map(option => `
+                                <label class="option-label flex items-center text-gray-300 cursor-pointer p-2 rounded-lg hover:bg-[#2A2A2A] transition duration-150">
+                                    <input type="radio" name="q${index}" value="${option}" data-q-index="${index}"
+                                        class="radio-input focus:ring-2 focus:ring-[#D4AF37]">
+                                    <span class="ml-2">${option}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                questionsContainer.innerHTML += questionHtml;
+            });
+        }
+
+        // --- 3. FUNCTION TO HANDLE SUBMISSION AND SCORING ---
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            let score = 0;
+            // Start of the feedback summary section
+            let feedbackHtml = `<p class="font-semibold text-xl border-b border-[#3A3A3A] pb-2 mb-4 text-gray-300">
+                                    Ringkasan Koreksi:
+                                </p>`;
+
+
+            questions.forEach((qData, index) => {
+                const qNumber = index + 1;
+                const selectedInput = document.querySelector(`input[name="q${index}"]:checked`);
+                const selectedAnswer = selectedInput ? selectedInput.value : null;
+                const isCorrect = selectedAnswer === qData.correct;
+
+                // Simple text replacement for feedback highlighting
+                let correctedQuestion = qData.q.replace('___', `<u class="text-[#D4AF37]">${qData.correct}</u>`);
+                // For questions without '___', display the correct option and the question text
+                if (qData.q.indexOf('___') === -1) {
+                     correctedQuestion = `${qData.q}. Jawaban Benar: <u class="text-[#D4AF37]">${qData.correct}</u>`;
+                }
+
+                if (isCorrect) {
+                    score++;
+                    feedbackHtml += `
+                        <div class="flex items-start p-3 bg-[#1A301A] rounded-lg">
+                            <span class="text-[#4CAF50] font-bold mr-3 mt-1">&#10003;</span>
+                            <p>
+                                <span class="font-mono-code text-sm text-[#4CAF50] mr-2">${qNumber}. Benar.</span>
+                                <span class="text-gray-300">${correctedQuestion}</span>
+                            </p>
+                        </div>
+                    `;
+                } else {
+                    const selectedText = selectedAnswer ? `<span class="text-red-400">(${selectedAnswer})</span>` : '<span class="text-red-400">(Tidak Dijawab)</span>';
+                    feedbackHtml += `
+                        <div class="flex items-start p-3 bg-[#301A1A] rounded-lg">
+                            <span class="text-red-400 font-bold mr-3 mt-1">&#10007;</span>
+                            <p>
+                                <span class="font-mono-code text-sm text-red-400 mr-2">${qNumber}. Salah. Jawabanmu ${selectedText}</span>
+                                <br>
+                                <span class="text-gray-300">Koreksi: ${correctedQuestion}</span>
+                            </p>
+                        </div>
+                    `;
+                }
+            });
+
+            // Display Results
+            document.getElementById('total-questions').textContent = questions.length;
+            finalScore.textContent = score;
+            feedbackSummary.innerHTML = feedbackHtml;
+            
+            quizForm.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+
+            // Scroll to the top of the results
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 4. EVENT LISTENERS & INITIALIZATION ---
+        quizForm.addEventListener('submit', handleSubmit);
+
+        retakeButton.addEventListener('click', () => {
+            window.location.reload(); // Simple reload to restart the quiz
+        });
+
+        // Initial render
+        renderQuestions();
+    </script>
+</body>
+</html>

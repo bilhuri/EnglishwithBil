@@ -1,33 +1,33 @@
 const CACHE_NAME = 'ewb-v1';
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/offline.html',
-  '/level-1.html',
-  '/level-2.html',
-  '/level-3.html',
-  '/level-4.html',
-  '/toefl.html',
-  '/ielts.html',
-  '/level-1-quiz.html',
-  '/level-2-quiz.html',
-  '/level-3-quiz.html',
-  '/level-4-quiz.html',
-  '/toefl-quiz.html',
-  '/ielts-quiz.html',
-  '/style.css',
-  '/script.js',
-  '/manifest.json',
-  '/favicon.ico',
-  '/apple-touch-icon.png',
-  '/icons/icon-72x72.png',
-  '/icons/icon-96x96.png',
-  '/icons/icon-128x128.png',
-  '/icons/icon-144x144.png',
-  '/icons/icon-152x152.png',
-  '/icons/icon-192x192.png',
-  '/icons/icon-384x384.png',
-  '/icons/icon-512x512.png'
+  './',
+  './index.html',
+  './offline.html',
+  './level-1.html',
+  './level-2.html',
+  './level-3.html',
+  './level-4.html',
+  './toefl.html',
+  './ielts.html',
+  './level-1-quiz.html',
+  './level-2-quiz.html',
+  './level-3-quiz.html',
+  './level-4-quiz.html',
+  './toefl-quiz.html',
+  './ielts-quiz.html',
+  './style.css',
+  './script.js',
+  './manifest.json',
+  './favicon.ico',
+  './apple-touch-icon.png',
+  './icons/icon-72x72.png',
+  './icons/icon-96x96.png',
+  './icons/icon-128x128.png',
+  './icons/icon-144x144.png',
+  './icons/icon-152x152.png',
+  './icons/icon-192x192.png',
+  './icons/icon-384x384.png',
+  './icons/icon-512x512.png'
 ];
 
 // Install: Precache all static assets
@@ -80,7 +80,7 @@ self.addEventListener('fetch', (event) => {
         .catch(() => {
           return caches.match(request).then((cached) => {
             if (cached) return cached;
-            return caches.match('/offline.html');
+            return caches.match('./offline.html');
           });
         })
     );

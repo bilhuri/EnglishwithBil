@@ -1,0 +1,149 @@
+/* IMPORT FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:wght@600;700&display=swap');
+
+/* 1. VARIABLES & RESET */
+:root {
+    --bg-color: #0a0a0a;
+    --card-bg: #111111;
+    --text-primary: #e5e5e5;
+    --text-secondary: #888888; /* Lebih gelap dikit biar elegan */
+    --accent-color: #ffffff;
+    --border-color: #222222; /* Border lebih halus */
+    --code-bg: #000000;
+    --gold-dim: #d4af37; /* Warna Emas Redup untuk Special Track */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--accent-color); }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+/* UTILITIES */
+.container { max-width: 1000px; margin: 0 auto; padding: 20px; } /* Max-width dikecilkan dikit biar fokus */
+.hidden { display: none !important; }
+
+/* NAVBAR */
+.navbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 0; border-bottom: 1px solid var(--border-color); margin-bottom: 40px;
+}
+.brand { font-size: 1.2rem; font-weight: 700; letter-spacing: 0.5px; }
+.nav-btn {
+    background: transparent; border: 1px solid var(--border-color);
+    color: var(--text-secondary); padding: 5px 15px; cursor: pointer;
+    font-size: 0.8rem; border-radius: 4px; transition: 0.3s;
+}
+.nav-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+/* --- HERO SECTION (NEW) --- */
+.hero-section {
+    text-align: center; margin-bottom: 50px;
+}
+.hero-section h1 { font-size: 3rem; margin-bottom: 10px; line-height: 1.1; }
+.hero-section p { color: var(--text-secondary); font-size: 1.1rem; font-weight: 300; }
+
+/* 2. LAYOUT DASHBOARD (COMPACT GRID) */
+.dashboard-grid {
+    display: grid;
+    /* Kartu lebih kecil (min 240px) agar muat 3-4 kolom di layar lebar */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px; /* Jarak antar kartu lebih rapat */
+    padding-bottom: 4rem;
+}
+
+.menu-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem; /* Padding dikecilkan biar tidak boros tempat */
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Isi mulai dari atas */
+    min-height: 160px; /* Tinggi minimal lebih pendek */
+}
+
+.menu-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--text-secondary);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Shadow premium */
+}
+
+.card-header { margin-bottom: 15px; display: flex; justify-content: space-between; }
+.badge-level {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-secondary); border: 1px solid var(--border-color);
+    padding: 2px 8px; border-radius: 4px;
+}
+.badge-track {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
+    color: #000; background: var(--gold-dim);
+    padding: 2px 8px; border-radius: 4px; font-weight: bold;
+}
+
+.menu-card h3 { font-size: 1.4rem; margin-bottom: 8px; }
+.menu-card p {
+    color: var(--text-secondary); font-size: 0.85rem; line-height: 1.4;
+}
+
+/* Special Card Style (TOEFL/IELTS) */
+.menu-card.special { border-color: rgba(212, 175, 55, 0.2); }
+.menu-card.special:hover { border-color: var(--gold-dim); }
+
+/* 3. LAYOUT MATERI (LESSON) */
+.lesson-layout { display: flex; gap: 3rem; position: relative; }
+
+/* Sidebar */
+.sidebar {
+    width: 240px; flex-shrink: 0; position: sticky; top: 2rem;
+    height: calc(100vh - 4rem); overflow-y: auto; /* Scrollable sidebar */
+    border-right: 1px solid var(--border-color); padding-right: 1.5rem;
+}
+.sidebar ul { list-style: none; }
+.sidebar li { margin-bottom: 0.8rem; }
+.sidebar a {
+    color: var(--text-secondary); font-size: 0.85rem; display: block; padding: 4px 0;
+}
+.sidebar a:hover, .sidebar a.active {
+    color: var(--accent-color); font-weight: 600; padding-left: 8px; border-left: 2px solid var(--accent-color);
+}
+
+/* Content */
+.content-area { flex: 1; max-width: 700px; padding-bottom: 100px; }
+section { margin-bottom: 4rem; scroll-margin-top: 100px; }
+section h2 { font-size: 2rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+.explanation { margin-bottom: 1rem; font-size: 1rem; color: #ccc; }
+
+/* 4. KOMPONEN LAIN */
+.code-block {
+    background-color: var(--code-bg); border: 1px solid var(--border-color);
+    padding: 1.2rem; border-radius: 6px; font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-color); margin: 1.5rem 0; font-size: 0.9rem;
+}
+.fixed-badge {
+    position: fixed; bottom: 20px; right: 20px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+    color: var(--text-secondary); background: rgba(10, 10, 10, 0.8);
+    padding: 5px 10px; border: 1px solid var(--border-color); border-radius: 50px;
+    opacity: 0.5; z-index: 9999; pointer-events: none;
+}
+footer {
+    text-align: center; padding: 3rem 0; border-top: 1px solid var(--border-color);
+    color: var(--text-secondary); margin-top: 2rem; font-size: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-grid { grid-template-columns: 1fr; } /* 1 Kolom di HP */
+    .hero-section h1 { font-size: 2rem; }
+    .lesson-layout { flex-direction: column; }
+    .sidebar { display: none; } /* Sidebar hilang di HP (sementara) */
+}

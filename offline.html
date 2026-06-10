@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>Offline - English with Bil</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            text-align: center;
+            max-width: 400px;
+        }
+        .icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: #1a1a1a;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: #D4AF37;
+        }
+        p {
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            font-size: 0.95rem;
+        }
+        .btn {
+            display: inline-block;
+            background: #D4AF37;
+            color: #0a0a0a;
+            padding: 12px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .status {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .checking {
+            animation: pulse 1.5s infinite;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📡</div>
+        <h1>Anda Offline</h1>
+        <p>Sepertinya koneksi internet Anda terputus. English with Bil memerlukan koneksi untuk konten terbaru, tetapi materi yang sudah Anda buka sebelumnya masih tersedia di cache.</p>
+        <button class="btn" id="retryBtn" onclick="checkConnection()">Coba Lagi</button>
+        <p class="status" id="status"></p>
+    </div>
+
+    <script>
+        async function checkConnection() {
+            const btn = document.getElementById('retryBtn');
+            const status = document.getElementById('status');
+
+            btn.disabled = true;
+            btn.textContent = 'Memeriksa...';
+            status.className = 'status checking';
+            status.textContent = 'Menghubungkan ke server...';
+
+            try {
+                const response = await fetch('/', { method: 'HEAD', cache: 'no-store' });
+                if (response.ok) {
+                    status.textContent = 'Koneksi kembali! Memuat ulang...';
+                    window.location.reload();
+                } else {
+                    throw new Error('Server error');
+                }
+            } catch (err) {
+                btn.disabled = false;
+                btn.textContent = 'Coba Lagi';
+                status.className = 'status';
+                status.textContent = 'Masih offline. Periksa koneksi Anda.';
+            }
+        }
+
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+
+        setInterval(async () => {
+            if (navigator.onLine) {
+                try {
+                    await fetch('/', { method: 'HEAD', cache: 'no-store' });
+                    window.location.reload();
+                } catch (e) {}
+            }
+        }, 30000);
+    </script>
+</body>
+</html>

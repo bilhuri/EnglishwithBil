@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#D4AF37">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="English with Bil">
+    <meta name="msapplication-TileColor" content="#D4AF37">
+    <meta name="msapplication-TileImage" content="icons/icon-144x144.png">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512x512.png">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ewb-icon.ico" type="image/x-icon">
+    <title>English with Bil - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+<base target="_blank">
+</head>
+<body>
+
+    <div class="fixed-badge">Product of Bilhuri Studio</div>
+
+    <div class="container dashboard-container">
+        <nav class="navbar">
+            <div class="brand">English with Bil</div>
+        </nav>
+
+        <header class="hero-section">
+            <h1>The Logic of English</h1>
+            <p>Master Grammar like a Pro. No memorization, just logic.</p>
+        </header>
+
+        <div class="dashboard-grid">
+            
+            <a href="level-1.html" class="menu-card">
+                <div class="card-header">
+                    <span class="badge-level">Level 1</span>
+                </div>
+                <div class="card-body">
+                    <h3>The Basic Logic</h3>
+                    <p>Pondasi kalimat (S-V-O), To Be, & Pronouns.</p>
+                </div>
+            </a>
+
+            <a href="level-2.html" class="menu-card">
+                <div class="card-header">
+                    <span class="badge-level">Level 2</span>
+                </div>
+                <div class="card-body">
+                    <h3>The Timeline</h3>
+                    <p>Waktu & Durasi: Continuous, Past, & Future.</p>
+                </div>
+            </a>
+
+            <a href="level-3.html" class="menu-card">
+                <div class="card-header">
+                    <span class="badge-level">Level 3</span>
+                </div>
+                <div class="card-body">
+                    <h3>Complex Logic</h3>
+                    <p>Passive Voice, Modals, & Prepositions.</p>
+                </div>
+            </a>
+
+            <a href="level-4.html" class="menu-card">
+                <div class="card-header">
+                    <span class="badge-level">Level 4</span>
+                </div>
+                <div class="card-body">
+                    <h3>Advanced Logic</h3>
+                    <p>Conditional (If Types) & Subjunctive.</p>
+                </div>
+            </a>
+
+            <a href="toefl.html" class="menu-card special">
+                <div class="card-header">
+                    <span class="badge-track">Exam Prep</span>
+                </div>
+                <div class="card-body">
+                    <h3>TOEFL Prep</h3>
+                    <p>Structure & Written Exp Strategies.</p>
+                </div>
+            </a>
+
+            <a href="ielts.html" class="menu-card special">
+                <div class="card-header">
+                    <span class="badge-track">Exam Prep</span>
+                </div>
+                <div class="card-body">
+                    <h3>IELTS Mastery</h3>
+                    <p>Writing & Speaking High Band Score.</p>
+                </div>
+            </a>
+
+        </div>
+
+        <footer>
+            &copy; 2026 Bilhuri Studio. All Rights Reserved.
+        </footer>
+    </div>
+
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then((registration) => {
+                        console.log('SW registered:', registration.scope);
+
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    console.log('New version available');
+                                }
+                            });
+                        });
+                    })
+                    .catch((error) => {
+                        console.log('SW registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+
+</html>
